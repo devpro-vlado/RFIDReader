@@ -31,6 +31,7 @@ namespace RFIDReader
         {
             this.listView1 = new System.Windows.Forms.ListView();
             this.Id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Sucess = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Error = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
@@ -39,6 +40,7 @@ namespace RFIDReader
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Id,
+            this.Name,
             this.Sucess,
             this.Error});
             this.listView1.HideSelection = false;
@@ -54,6 +56,11 @@ namespace RFIDReader
             this.Id.Text = "Chip ID";
             this.Id.Width = 166;
             // 
+            // Name
+            // 
+            this.Name.Text = "Name";
+            this.Name.Width = 120;
+            // 
             // Sucess
             // 
             this.Sucess.Text = "Sucess";
@@ -62,7 +69,7 @@ namespace RFIDReader
             // Error
             // 
             this.Error.Text = "Error Message";
-            this.Error.Width = 550;
+            this.Error.Width = 430;
             // 
             // RFIDReader
             // 
@@ -70,7 +77,6 @@ namespace RFIDReader
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(875, 539);
             this.Controls.Add(this.listView1);
-            this.Name = "RFIDReader";
             this.Text = "RFID Reader";
             this.ResumeLayout(false);
 
@@ -82,6 +88,7 @@ namespace RFIDReader
         private System.Windows.Forms.ColumnHeader Id;
         private System.Windows.Forms.ColumnHeader Sucess;
         private System.Windows.Forms.ColumnHeader Error;
+        private System.Windows.Forms.ColumnHeader Name;
     }
 }
 

@@ -59,18 +59,19 @@ namespace RFIDReader
                         {
                             var request = new
                             {
-                                token = "9c3f1e971b5b4f3ae5feea311ef443e5",
+                                token = System.Configuration.ConfigurationManager.AppSettings["token"],
                                 rfid = ChipId,
                                 missed_checkpoints = 0
                             };
 
                             File.AppendAllText("log.txt", ChipId + Environment.NewLine);
-
-                            var result = httpClient.PostAsync("https://prijave.sdmalaerpenja.hr/api/v2/rc/1/result", 
+                            
+                            var result = httpClient.PostAsync(System.Configuration.ConfigurationManager.AppSettings["resultsUrl"], 
                                 new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json")).Result;
 
                             var isSuccess = false;
                             var errorMessage = "";
+                            var competitorName = "";
 
                             if (result.StatusCode == HttpStatusCode.OK)
                             {
@@ -83,6 +84,15 @@ namespace RFIDReader
                                     if (resultProp != null)
                                     {
                                         isSuccess = true;
+                                        try
+                                        {
+                                            var person = obj.start_number.competitor.person;
+                                            competitorName = $"{person.name} {person.surname}";
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            //todo log
+                                        }
                                     }
                                     else
                                     {
@@ -113,9 +123,10 @@ namespace RFIDReader
                             }
 
                             var item = new ListViewItem(ChipId);
+                            item.SubItems.Add(competitorName);
                             item.SubItems.Add(isSuccess ? "Yes" : "No");
                             item.SubItems.Add(errorMessage);
-                            listView1.Items.Add(item);
+                            listView1.Items.Insert(0, item);
 
                             if (!isSuccess)
                             {
